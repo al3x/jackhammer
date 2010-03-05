@@ -1,4 +1,4 @@
-package com.twitter.zookeeperloadtest
+package com.twitter.jackhammer
 
 import java.io.{BufferedReader, File, FileReader, FileWriter}
 import java.util.concurrent.{ConcurrentLinkedQueue, Executors, TimeUnit}

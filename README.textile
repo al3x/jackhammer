@@ -1,0 +1,25 @@
+h1. Jackhammer
+
+h2. About
+
+Jackhammer is a generic load testing framework, written in Scala. Without assuming what sort of system you're trying to load test, Jackhammer provides flexible higher-order functions to measurably, repeatedly, and concurrently execute operations. Scripts are provided to tally statistics gathered in test runs and produce basic reports.
+
+You might use Jackhammer to load test a new system you're building (ex: a domain-specific custom datastore), or you might use it to load test a commercial or open source system (ex: a web server, a database, a distributed cache) to ensure it meets your operational requirements.
+
+Jackhammer was developed by members of the Infrastructure team at "Twitter, Inc.":http://twitter.com/jobs after writing several one-off load tests for both internally-developed and third-party components. It's named in honor of Twitter's primary creator, "Jack Dorsey":http://twitter.com/jack.
+
+h2. Requirements
+
+TODO
+
+h2. Usage
+
+TODO
+
+h2. Authors
+
+"Alex Payne":http://github.com/al3x is the primary committer. Jackhammer borrows heavily from load testing techniques used by his colleague at Twitter, "Steve Jenson":http://github.com/stevej. "Matt Knox":http://github.com/mattknox helped out, and pushed for a higher-order approach.
+
+h2. License
+
+Apache License, Version 2.0. See the LICENSE file for more information.
