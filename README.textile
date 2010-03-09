@@ -2,11 +2,13 @@ h1. Jackhammer
 
 h2. About
 
-Jackhammer is a generic load testing framework, written in Scala. Without assuming what sort of system you're trying to load test, Jackhammer provides flexible higher-order functions to measurably, repeatedly, and concurrently execute operations. Scripts are provided to tally statistics gathered in test runs and produce basic reports.
+Jackhammer is a generic load testing framework, written in "Scala":http://scala-lang.org/. Without assuming what sort of system you're trying to load test, Jackhammer provides flexible higher-order functions to measurably, repeatedly, and concurrently execute operations. Scripts are provided to tally statistics gathered in test runs and produce basic reports.
 
-You might use Jackhammer to load test a new system you're building (ex: a domain-specific custom datastore), or you might use it to load test a commercial or open source system (ex: a web server, a database, a distributed cache) to ensure it meets your operational requirements.
+You might use Jackhammer to load test a new system you're building (ex: a domain-specific custom datastore), or you might use it to load test a commercial or open source system (ex: a web server, a database, a distributed caching layer) to ensure it meets your operational requirements.
 
-Jackhammer was developed by members of the Infrastructure team at "Twitter, Inc.":http://twitter.com/jobs after writing several one-off load tests for both internally-developed and third-party components. It's named in honor of Twitter's primary creator, "Jack Dorsey":http://twitter.com/jack.
+You can easily use Jackhammer to drive load tests of Java code, by virtue of Scala's ability to transparently call into Java. With a little more work, you could probably use it to load test code written in other JVM languages, such as Clojure or JRuby.
+
+Jackhammer was developed by members of the Infrastructure team at "Twitter, Inc.":http://twitter.com/jobs after writing a number of one-off load tests and observing what patterns worked well for us. The project is named in honor of Twitter's primary creator and Chairman of the Board, "Jack Dorsey":http://twitter.com/jack.
 
 h2. Requirements
 
