@@ -1,5 +1,7 @@
 package com.twitter.jackhammer
 
+import java.util.concurrent.CountDownLatch
+import scala.collection.mutable.ListBuffer
 import java.io.{BufferedReader, File, FileReader, FileWriter}
 import java.util.concurrent.{ConcurrentLinkedQueue, Executors, TimeUnit}
 import scala.actors.Actor
@@ -36,6 +38,23 @@ trait LoggingLoadTest {
     for (i <- 1 to runs) {
       runner ! runWithTiming(f)
     }
+  }
+
+  def runInNParallelThreads[T](threads: Int, runs: Int)(f: => T) {
+    val countDownLatch = new CountDownLatch(runs * threads)
+    var threadList = new ListBuffer[Thread]()
+
+    for (i <- 1 to threads) {
+      threadList += new Thread {
+	runWithTimingNTimes(runs) {
+	  f
+	  countDownLatch.countDown()
+	}
+      }
+    }
+
+    threadList.map { thread => thread.run }
+    countDownLatch.await()
   }
 
   def runWithTiming[T](f: => T): T = {
