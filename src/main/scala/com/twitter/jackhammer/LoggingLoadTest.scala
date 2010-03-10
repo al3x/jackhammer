@@ -40,17 +40,14 @@ trait LoggingLoadTest {
 
   def runWithTiming[T](f: => T): T = {
     val time = System.currentTimeMillis
-    var error = 0
-
     val (result, duration) = Stats.duration[T] { f }
 
     // output columns:
     // 1. operation start time
-    // 2. if there have EVER been errors during the run
-    // 3. how long the operation took
+    // 2. how long the operation took
     //
     // all timings are in milliseconds
-    logOutput.offer("%s %d %d".format(time, error, duration))
+    logOutput.offer("%s %d".format(time, duration))
 
     result
   }
