@@ -1,15 +1,13 @@
 package com.twitter.jackhammer
 
-import java.util.concurrent.CountDownLatch
-import scala.collection.mutable.ListBuffer
 import java.io.{BufferedReader, File, FileReader, FileWriter}
-import java.util.concurrent.{ConcurrentLinkedQueue, Executors, TimeUnit}
+import java.util.concurrent.{ConcurrentLinkedQueue, CountDownLatch}
 import scala.actors.Actor
 import scala.actors.Actor._
-import scala.collection.mutable
+import scala.collection.{immutable, mutable}
+import com.twitter.ostrich.Stats
 import net.lag.configgy.{Config, Configgy}
 import net.lag.logging.Logger
-import com.twitter.ostrich.Stats
 
 
 trait LoggingLoadTest {
@@ -26,7 +24,7 @@ trait LoggingLoadTest {
     }
   }
 
-  def runInParallelNTimes[T](runs: Int)(f: => T) {
+  def runInActorNTimes[T](runs: Int)(f: => T) {
     val runner = actor {
       loop {
         react {
@@ -40,16 +38,16 @@ trait LoggingLoadTest {
     }
   }
 
-  def runInNParallelThreads[T](threads: Int, runs: Int)(f: => T) {
+  def runInNParallelThreadsMTimes[T](threads: Int, runs: Int)(f: => T) {
     val countDownLatch = new CountDownLatch(runs * threads)
-    var threadList = new ListBuffer[Thread]()
+    var threadList = new mutable.ListBuffer[Thread]()
 
     for (i <- 1 to threads) {
       threadList += new Thread {
-	runWithTimingNTimes(runs) {
-	  f
-	  countDownLatch.countDown()
-	}
+	      runWithTimingNTimes(runs) {
+	        f
+	        countDownLatch.countDown()
+	      }
       }
     }
 
@@ -64,8 +62,6 @@ trait LoggingLoadTest {
     // output columns:
     // 1. operation start time
     // 2. how long the operation took
-    //
-    // all timings are in milliseconds
     logOutput.offer("%s %d".format(time, duration))
 
     result
