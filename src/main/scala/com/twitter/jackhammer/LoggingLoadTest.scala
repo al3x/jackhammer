@@ -15,8 +15,7 @@ trait LoggingLoadTest {
 
   private val log = Logger.get
   private val config = Configgy.config
-
-  val logOutput = new ConcurrentLinkedQueue[String]()
+  private[jackhammer] val logOutput = new ConcurrentLinkedQueue[String]()
 
   def runWithTimingNTimes[T](runs: Int)(f: => T) {
     for (i <- 1 to runs) {
@@ -68,7 +67,7 @@ trait LoggingLoadTest {
   }
 
   def dumpLogOutput: File = {
-    val tmpFile = File.createTempFile("loadtest-%d".format(System.currentTimeMillis), "log")
+    val tmpFile = File.createTempFile("loadtest", ".log")
     dumpLogOutput(tmpFile)
     tmpFile
   }
